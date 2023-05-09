@@ -70,12 +70,14 @@ public class WordFrequencyAnalyzerServiceTest {
     }
 
     @Test
-    void calculateFrequencyForWordNull() {
+    void calculateFrequencyForWordWordEmpty() {
         //Arrange
         String inputString = "Aap Noot Mies Mies Mies";
-        //Act & Assert
-        assertThatThrownBy(() -> wordFrequencyAnalyzerService.calculateFrequencyForWord(inputString,""))
-                .isInstanceOf(NullPointerException.class);
+        val expected = 0;
+        //Act
+        val result = wordFrequencyAnalyzerService.calculateFrequencyForWord(inputString,"");
+        //Assert
+        assertThat(result).isEqualTo(expected);
     }
     //endregion
 
