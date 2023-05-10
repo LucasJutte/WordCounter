@@ -49,7 +49,11 @@ public class WordFrequencyAnalyzerService implements WordFrequencyAnalyzer {
             throw new IllegalArgumentException("There are no words to count!");
         }
         val words = text.toLowerCase().split("\\W+");
+        if(words.length < 1){
+            throw new IllegalArgumentException("There are no words to count!");
+        }
         return Arrays.stream(words)
+                .filter(str -> !str.isEmpty())
                 .collect(Collectors.toMap(
                         word -> word, //Key
                         word -> 1, //Initial value

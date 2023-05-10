@@ -102,5 +102,6 @@ public class WordFrequencyAnalyzerServiceTest {
         //Assert
         assertThat(result).containsExactlyElementsOf(expectedList);
     }
+
 //endregion
 }
