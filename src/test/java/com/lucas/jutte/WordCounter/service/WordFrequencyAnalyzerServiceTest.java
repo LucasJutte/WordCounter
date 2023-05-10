@@ -1,9 +1,16 @@
 package com.lucas.jutte.WordCounter.service;
 
+import com.lucas.jutte.WordCounter.model.Word;
+import com.lucas.jutte.WordCounter.supplied.WordFrequency;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
@@ -64,7 +71,7 @@ public class WordFrequencyAnalyzerServiceTest {
         //Arrange
         val inputString = "";
         //Act & Assert
-        assertThatThrownBy(() -> wordFrequencyAnalyzerService.calculateFrequencyForWord(inputString,"Mies"))
+        assertThatThrownBy(() -> wordFrequencyAnalyzerService.calculateFrequencyForWord(inputString, "Mies"))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("There are no words to count!");
     }
@@ -75,7 +82,7 @@ public class WordFrequencyAnalyzerServiceTest {
         String inputString = "Aap Noot Mies Mies Mies";
         val expected = 0;
         //Act
-        val result = wordFrequencyAnalyzerService.calculateFrequencyForWord(inputString,"");
+        val result = wordFrequencyAnalyzerService.calculateFrequencyForWord(inputString, "");
         //Assert
         assertThat(result).isEqualTo(expected);
     }
@@ -84,7 +91,16 @@ public class WordFrequencyAnalyzerServiceTest {
     //region calculateMostFrequentNWords
     @Test
     void calculateMostFrequentNWords() {
-
+        //Arrange
+        String inputString = "The sun shines over the lake";
+        List<WordFrequency> expectedList = List.of(
+                new Word("The".toLowerCase(), 2),
+                new Word("Lake".toLowerCase(), 1),
+                new Word("Over".toLowerCase(), 1));
+        //Act
+        val result = wordFrequencyAnalyzerService.calculateMostFrequentNWords(inputString,3);
+        //Assert
+        assertThat(result).containsExactlyElementsOf(expectedList);
     }
-    //endregion
+//endregion
 }
